@@ -34,3 +34,47 @@ footer {
     position: static;
     width: 100%;
 }
+
+/* Tanmay Sagar - Popup styling and button hover effects */
+button {
+    margin: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+button:hover {
+    background: linear-gradient(45deg, #45a049, #4CAF50);
+    transform: translateY(-2px);
+}
+
+.control-panel {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.control-panel button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+.control-panel button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #45a049, #4CAF50);
+}
+
+button.active {
+    background: #FF5722;
+    color: white;
+}
