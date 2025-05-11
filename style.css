@@ -34,6 +34,31 @@ footer {
     position: static;
     width: 100%;
 }
+ 
+/* Kartik Bisht - Canvas styling and animations */
+canvas {
+    border: 3px solid #333;
+    background: linear-gradient(135deg, #e0e0e0, #ffffff);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+canvas:hover {
+    transform: scale(1.05);
+}
+
+.node {
+    font-weight: bold;
+    font-size: 16px;
+    fill: #333;
+}
+
+.edge-weight {
+    font-weight: bold;
+    font-size: 14px;
+    fill: #ff5722;
+}
 
 /* Tanmay Sagar - Popup styling and button hover effects */
 button {
