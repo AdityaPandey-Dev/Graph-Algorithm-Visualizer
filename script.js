@@ -65,3 +65,68 @@ function drawGraph() {
         ctx.fillText(node.id, node.x - 5, node.y + 5);
     });
 }
+
+/* Kartik Bisht - BFS and DFS implementations */
+// Add debugging logs to track execution
+console.log("Nodes:", nodes);
+console.log("Edges:", edges);
+
+function startBFS() {
+    if (nodes.length === 0) {
+        logMessage("No nodes available. Please create nodes to start BFS.");
+        return;
+    }
+    console.log("Starting BFS...");
+    showPopup("<strong>BFS (Breadth-First Search):</strong> BFS is an algorithm for traversing or searching tree or graph data structures. It starts at the root node and explores all neighbors at the present depth before moving on to nodes at the next depth level.");
+    let queue = [nodes[0]];
+    let visited = new Set();
+    logDiv.innerHTML = "<strong>BFS Execution:</strong><br>";
+    function step() {
+        console.log("Queue:", queue);
+        if (queue.length === 0) return;
+        let node = queue.shift();
+        if (visited.has(node)) return step();
+        visited.add(node);
+        logMessage(`Visiting Node ${node.id}`);
+        ctx.fillStyle = "yellow";
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 20, 0, Math.PI * 2);
+        ctx.fill();
+        // Fix edge filtering by comparing node IDs
+        edges.filter(e => e.from.id === node.id).forEach(edge => {
+            if (!visited.has(edge.to)) queue.push(edge.to);
+        });
+        setTimeout(step, 500);
+    }
+    step();
+}
+
+function startDFS() {
+    if (nodes.length === 0) {
+        logMessage("No nodes available. Please create nodes to start DFS.");
+        return;
+    }
+    console.log("Starting DFS...");
+    showPopup("<strong>DFS (Depth-First Search):</strong> DFS is an algorithm for traversing or searching tree or graph data structures. It starts at the root node and explores as far as possible along each branch before backtracking.");
+    let stack = [nodes[0]];
+    let visited = new Set();
+    logDiv.innerHTML = "<strong>DFS Execution:</strong><br>";
+    function step() {
+        console.log("Stack:", stack);
+        if (stack.length === 0) return;
+        let node = stack.pop();
+        if (visited.has(node)) return step();
+        visited.add(node);
+        logMessage(`Visiting Node ${node.id}`);
+        ctx.fillStyle = "green";
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 20, 0, Math.PI * 2);
+        ctx.fill();
+        edges.filter(e => e.from.id === node.id).forEach(edge => {
+            if (!visited.has(edge.to)) stack.push(edge.to);
+        });
+        setTimeout(step, 500);
+    }
+    step();
+}
+
