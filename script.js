@@ -29,3 +29,39 @@ canvas.addEventListener("click", function(event) {
     }
     drawGraph();
 });
+
+/* Tanmay Sagar - Graph drawing logic and utility functions */
+function drawGraph() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw edges with enhanced styling
+    edges.forEach(edge => {
+        ctx.beginPath();
+        ctx.moveTo(edge.from.x, edge.from.y);
+        ctx.lineTo(edge.to.x, edge.to.y);
+        ctx.strokeStyle = "#555"; // Darker edge color for better visibility
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw edge weights with bold font
+        ctx.fillStyle = "#000"; // Black color for text
+        ctx.font = "bold 14px Arial";
+        ctx.fillText(edge.weight, (edge.from.x + edge.to.x) / 2, (edge.from.y + edge.to.y) / 2);
+    });
+
+    // Draw nodes with enhanced styling
+    nodes.forEach(node => {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 20, 0, Math.PI * 2);
+        ctx.fillStyle = "#87CEEB"; // Light blue color for nodes
+        ctx.fill();
+        ctx.strokeStyle = "#000"; // Black border for nodes
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw node labels with bold font
+        ctx.fillStyle = "#000"; // Black color for text
+        ctx.font = "bold 16px Arial";
+        ctx.fillText(node.id, node.x - 5, node.y + 5);
+    });
+}
