@@ -129,4 +129,71 @@ function startDFS() {
     }
     step();
 }
+/* Gaurang Joshi - Dijkstra's algorithm implementation and popup logic */
+function startDijkstra() {
+    if (nodes.length === 0) {
+        logMessage("No nodes available. Please create nodes to start Dijkstra's algorithm.");
+        return;
+    }
+    console.log("Starting Dijkstra's Algorithm...");
+    let distances = {};
+    let visited = new Set();
+    let queue = [{ node: nodes[0], cost: 0 }];
+    nodes.forEach(node => distances[node.id] = Infinity);
+    distances[nodes[0].id] = 0;
+    logDiv.innerHTML = "<strong>Dijkstra Execution:</strong><br>";
+    function step() {
+        console.log("Queue:", queue);
+        console.log("Visited:", visited);
+        if (queue.length === 0) return;
+        queue.sort((a, b) => a.cost - b.cost);
+        let { node, cost } = queue.shift();
+        if (visited.has(node)) return step();
+        visited.add(node);
+        logMessage(`Visiting Node ${node.id} with cost ${cost}`);
+        ctx.fillStyle = "orange";
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 20, 0, Math.PI * 2);
+        ctx.fill();
+        edges.filter(e => e.from.id === node.id).forEach(edge => {
+            let newCost = cost + edge.weight;
+            if (newCost < distances[edge.to.id]) {
+                distances[edge.to.id] = newCost;
+                queue.push({ node: edge.to, cost: newCost });
+                logMessage(`Updating distance of Node ${edge.to.id} to ${newCost}`);
+            }
+        });
+        // Ensure canvas updates correctly
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGraph();
+        setTimeout(step, 500);
+    }
+    step();
+}
+
+function showPopup(content) {
+    const popup = document.getElementById("infoPopup");
+    popup.innerHTML = content;
+    popup.classList.remove("hidden");
+    popup.classList.add("visible");
+}
+
+function hidePopup() {
+    const popup = document.getElementById("infoPopup");
+    popup.classList.remove("visible");
+    popup.classList.add("hidden");
+}
+
+function resetGraph() {
+    nodes = [];
+    edges = [];
+    selectedNode = null;
+    logDiv.innerHTML = "";
+    drawGraph();
+    logMessage("Graph has been reset.");
+}
+
+function logMessage(message) {
+    logDiv.innerHTML += message + "<br>";
+}
 
