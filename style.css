@@ -103,3 +103,92 @@ button.active {
     background: #FF5722;
     color: white;
 }
+/* Gaurang Joshi - Log section styling and responsive design */
+#log {
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+.popup {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    width: 300px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    font-size: 14px;
+    display: none;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease;
+}
+.popup.visible {
+    display: block;
+}
+.popup.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design for Mobile View */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    header {
+        font-size: 20px;
+        padding: 15px 0;
+    }
+
+    main {
+        margin: 10px;
+    }
+
+    canvas {
+        width: 90%;
+        height: auto;
+        margin: 10px auto;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .control-panel {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    #log {
+        max-width: 90%;
+        font-size: 12px;
+    }
+
+    .popup {
+        width: 90%;
+        right: 5%;
+        top: 20px;
+    }
+}
