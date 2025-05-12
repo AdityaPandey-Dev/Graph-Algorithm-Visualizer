@@ -15,14 +15,23 @@
     3. Kartik Bisht - Button functionality and event handling
     4. Gaurang Joshi - Algorithm descriptions and integration
     -->
-    <h1>Graph Algorithm Simulator</h1>
-    <canvas id="graphCanvas" width="600" height="400"></canvas>
-    <br>
-    <button onclick="startBFS()">BFS</button>
-    <button onclick="startDFS()">DFS</button>
-    <button onclick="startDijkstra()">Dijkstra</button>
-    <div id="log"></div>
-    <div id="infoPopup" class="popup hidden"></div>
+    <header>
+        <h1>Graph Algorithm Simulator</h1>
+    </header>
+    <main>
+        <canvas id="graphCanvas" width="600" height="400"></canvas>
+        <div class="control-panel">
+            <button onclick="startBFS()">BFS</button>
+            <button onclick="startDFS()">DFS</button>
+            <button onclick="startDijkstra()">Dijkstra</button>
+            <button onclick="resetGraph()">Reset Graph</button>
+        </div>
+        <div id="log"></div>
+        <div id="infoPopup" class="popup hidden"></div>
+    </main>
+    <footer>
+        <p>Designed by Aditya Pandey and Team | B.Tech 4th Semester</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
