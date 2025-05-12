@@ -146,6 +146,8 @@ function startDijkstra() {
         return;
     }
     console.log("Starting Dijkstra's Algorithm...");
+    showPopup("<strong>Dijkstra's Algorithm:</strong> Dijkstra's Algorithm is a graph traversal algorithm used to find the shortest path from a starting node to all other nodes in a weighted graph. It uses a priority queue to explore nodes with the smallest cumulative cost first, ensuring the shortest path is found efficiently.");
+    
     let distances = {};
     let visited = new Set();
     let queue = [{ node: nodes[0], cost: 0 }];
