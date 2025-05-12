@@ -27,7 +27,8 @@ canvas.addEventListener("click", function(event) {
         const newNode = {
             id: nodes.length + 1,
             x: x,
-            y: y
+            y: y,
+            visited: false // Add visited property
         };
 
         nodes.push(newNode);
@@ -58,7 +59,14 @@ function drawGraph() {
     nodes.forEach(node => {
         ctx.beginPath();
         ctx.arc(node.x, node.y, 20, 0, Math.PI * 2);
-        ctx.fillStyle = "#87CEEB"; // Light blue color for nodes
+
+        // Set node color based on its visited state
+        if (node.visited) {
+            ctx.fillStyle = node.color || "yellow"; // Use the node's color if set
+        } else {
+            ctx.fillStyle = "#87CEEB"; // Default light blue color for unvisited nodes
+        }
+
         ctx.fill();
         ctx.strokeStyle = "#000"; // Black border for nodes
         ctx.lineWidth = 2;
@@ -87,17 +95,15 @@ function startBFS() {
     let visited = new Set();
     logDiv.innerHTML = "<strong>BFS Execution:</strong><br>";
     function step() {
-        console.log("Queue:", queue);
         if (queue.length === 0) return;
         let node = queue.shift();
         if (visited.has(node)) return step();
         visited.add(node);
+        node.visited = true; // Mark the node as visited
+        node.color = "yellow"; // Set the node's color
         logMessage(`Visiting Node ${node.id}`);
-        ctx.fillStyle = "yellow";
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, 20, 0, Math.PI * 2);
-        ctx.fill();
-        // Fix edge filtering by comparing node IDs
+        drawGraph(); // Redraw the graph to reflect the color change
+
         edges.filter(e => e.from.id === node.id).forEach(edge => {
             if (!visited.has(edge.to)) queue.push(edge.to);
         });
@@ -117,16 +123,15 @@ function startDFS() {
     let visited = new Set();
     logDiv.innerHTML = "<strong>DFS Execution:</strong><br>";
     function step() {
-        console.log("Stack:", stack);
         if (stack.length === 0) return;
         let node = stack.pop();
         if (visited.has(node)) return step();
         visited.add(node);
+        node.visited = true; // Mark the node as visited
+        node.color = "green"; // Set the node's color
         logMessage(`Visiting Node ${node.id}`);
-        ctx.fillStyle = "green";
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, 20, 0, Math.PI * 2);
-        ctx.fill();
+        drawGraph(); // Redraw the graph to reflect the color change
+
         edges.filter(e => e.from.id === node.id).forEach(edge => {
             if (!visited.has(edge.to)) stack.push(edge.to);
         });
@@ -148,18 +153,16 @@ function startDijkstra() {
     distances[nodes[0].id] = 0;
     logDiv.innerHTML = "<strong>Dijkstra Execution:</strong><br>";
     function step() {
-        console.log("Queue:", queue);
-        console.log("Visited:", visited);
         if (queue.length === 0) return;
         queue.sort((a, b) => a.cost - b.cost);
         let { node, cost } = queue.shift();
         if (visited.has(node)) return step();
         visited.add(node);
+        node.visited = true; // Mark the node as visited
+        node.color = "orange"; // Set the node's color
         logMessage(`Visiting Node ${node.id} with cost ${cost}`);
-        ctx.fillStyle = "orange";
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, 20, 0, Math.PI * 2);
-        ctx.fill();
+        drawGraph(); // Redraw the graph to reflect the color change
+
         edges.filter(e => e.from.id === node.id).forEach(edge => {
             let newCost = cost + edge.weight;
             if (newCost < distances[edge.to.id]) {
@@ -168,9 +171,6 @@ function startDijkstra() {
                 logMessage(`Updating distance of Node ${edge.to.id} to ${newCost}`);
             }
         });
-        // Ensure canvas updates correctly
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawGraph();
         setTimeout(step, 500);
     }
     step();
