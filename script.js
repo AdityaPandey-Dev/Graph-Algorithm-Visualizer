@@ -5,9 +5,14 @@ const logDiv = document.getElementById("log");
 let nodes = [], edges = [], selectedNode = null;
 
 canvas.addEventListener("click", function(event) {
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    const rect = canvas.getBoundingClientRect(); // Get the canvas's bounding box
+    const scaleX = canvas.width / rect.width;   // Horizontal scaling factor
+    const scaleY = canvas.height / rect.height; // Vertical scaling factor
+
+    // Adjust the mouse position to account for scaling
+    const x = (event.clientX - rect.left) * scaleX;
+    const y = (event.clientY - rect.top) * scaleY;
+
     let clickedNode = nodes.find(node => Math.hypot(node.x - x, node.y - y) < 20);
     if (clickedNode) {
         if (selectedNode && selectedNode !== clickedNode) {
